@@ -14,6 +14,12 @@
 <?php
 get_template_part('template-part/about', 'header');
 echo "single poertfolio.php";
+$data = get_post_meta(161, "portfolio_meta_data", true);
+if ($data==='') {
+    echo '';
+} else {
+    echo '<h1>'.$data."</h1>";
+}
 get_header();
 get_sidebar();
 the_post();

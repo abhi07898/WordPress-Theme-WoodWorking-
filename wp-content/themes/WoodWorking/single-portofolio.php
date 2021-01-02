@@ -1,6 +1,6 @@
 <?php
 get_template_part('template-part/about', 'header');
-echo "single poertfolio.php";
+echo "poertfolio.php";
 get_header();
 get_sidebar();
 the_post();
