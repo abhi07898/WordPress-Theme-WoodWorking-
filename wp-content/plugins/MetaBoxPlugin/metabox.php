@@ -117,9 +117,10 @@ function show_all_post_type_metaBox() {
 add_action("add_meta_boxes", 'show_all_post_type_metaBox');
 function ced_all_post_callbackfun() {
 	$data = get_users();
+	
 	foreach($data as $key => $val) {
 		?>
-			<input type="checkbox" name="checkbox" value="<?php echo $val?>"> <?php echo $val;?>
+			<br><input type="checkbox" name="checkbox" value="<?php echo $val?>"> <?php echo $val;?>
 		<?php
 	}
 }
@@ -127,7 +128,7 @@ function ced_all_post_callbackfun() {
 
 // learn with develpoer site 
 function wporg_add_custom_box() {
-	$screen_array = array('post', 'page', 'portofolio');
+	$screen_array = get_option('custom_meta_choice');
     $screens = [ $screen_array ];
     foreach ( $screens as $screen ) {
         add_meta_box(
@@ -138,6 +139,7 @@ function wporg_add_custom_box() {
             'side'                            // Post type
         );
     }
+    add_option('custom_meta_choice','','yes' );
 }
 add_action( 'add_meta_boxes', 'wporg_add_custom_box' );
 function wporg_custom_box_html( $post ) {
