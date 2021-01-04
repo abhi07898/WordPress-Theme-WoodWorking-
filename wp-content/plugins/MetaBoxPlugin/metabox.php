@@ -3,7 +3,7 @@
  * @package Akismet
  */
 /*
-Plugin Name: Custom-Meta Box
+Plugin Name: Custom-Meta Box(for store	)
 Plugin URI: https://cedcoss.com/
 Description: Custome -mat bos designed and eated by me on so,e pages like custome and pages and plosts Used by millions, Custome-Plugin is quite possibly the best way in the world to <strong>protect your blog from spam</strong>. Its a plugin that ceraerted during the test of all learned concept: activate the Akismet plugin and then go to your Akismet Settings page to set up your API key.
 Version: 4.1.7
@@ -37,18 +37,16 @@ if(!defined ("CED_PLUGIN_DIR_PATH") ) {
 }
 
 if(!defined( 'CED_PLUGIN_URL')) {
-    define('CED_PLUGIN_URL',plugin_dir_url(__FILE__));   
+    define('CED_PLUGIN_URL', plugins_url());   
 }
 
 // including css and js file 
 if (!function_exists("ced_plugins_scripts")) {
+    add_action('admin_enqueue_scripts', 'ced_plugins_scripts');
     function ced_plugins_scripts() {
         wp_enqueue_style('ced_css', CED_PLUGIN_URL.'assets/css/style.css');
-        // wp_enqueue_style('ced_css_boot', CED_PLUGIN_URL.'assets/bootstrap/css/bootstrap.min.css');
         wp_enqueue_script('ced_js', CED_PLUGIN_URL.'assets/js/main.js');
-        // wp_enqueue_script('ced_js_boot', CED_PLUGIN_URL.'assets/bootstrap/js/bootstrap.min.js');
-    }
-    add_action('wp_enqueue_scripts','ced_plugins_scripts');
+    }   
 }
 // create a function for add meta box on pre define pages 
 function Ced_custome_neta_box() {
@@ -62,15 +60,15 @@ function Ced_custome_neta_box() {
 add_action("add_meta_boxes", "Ced_custome_neta_box");
 // call back function for post meta box 
 function ced_post_function() {
-	// echo "post Data Meta Box";
+    // echo "post Data Meta Box";
 }
 // call back function for page meta box 
 function ced_pages_function() {
-	// echo "This is page funciton for pshow the details Meta Box";
+    // echo "This is page funciton for pshow the details Meta Box";
 }
 function ced_another_metabox() {
-	?>
-	<p>Git Hub link of my post</p>
+    ?>
+    <p>Git Hub link of my post</p>
     <p><a href="https://github.com/abhi07898" target="_blank">Github link</a></p>
     <?php
 }
@@ -84,51 +82,51 @@ function ced_metaBox_for_custome_post() {
 add_action("add_meta_boxes_portofolio", "ced_metaBox_for_custome_post");
 // functio for show teh  conthen on portfolio page 
 function ced_portfolio_function(){
-	echo "hii this is a custome meta box for practise the meta concept";
-	$data = get_post_meta(161, "portfolio_meta_data",true);
-	?>
-		<p>
-			<label for="protfolio_name">Portfolio Custome Title</label>
-			<input type="port" name="port" placeholder="custom title" value="<?php echo $data;?>">
-		</p>
-	<?php
+    echo "hii this is a custome meta box for practise the meta concept";
+    $data = get_post_meta(161, "portfolio_meta_data",true);
+    ?>
+        <p>
+            <label for="protfolio_name">Portfolio Custome Title</label>
+            <input type="port" name="port" placeholder="custom title" value="<?php echo $data;?>">
+        </p>
+    <?php
 }
 
 
-add_action("save_post", "save_the_meta_box_data",10,2); 
+add_action("save_post", "save_the_meta_box_data", 10, 2); 
 function save_the_meta_box_data($post_id, $post) {
-	$post_slug = "portofolio";
-	if($post_slug!= $post->post_type) {
-		return;
-	}
-	$port_title_custom = '';
-	if(isset($_POST['port'])) {
-		$port_title_custom = sanitize_text_field( $_POST['port']);
-	}else {
-		$port_title_custom= '';
-	}
-	// insert the data into post_meta table 
-	update_post_meta($post_id, "portfolio_meta_data",$port_title_custom);
+    $post_slug = "portofolio";
+    if($post_slug!= $post->post_type) {
+        return;
+    }
+    $port_title_custom = '';
+    if(isset($_POST['port'])) {
+        $port_title_custom = sanitize_text_field( $_POST['port']);
+    }else {
+        $port_title_custom= '';
+    }
+    // insert the data into post_meta table 
+    update_post_meta($post_id, "portfolio_meta_data",$port_title_custom);
 }
 // create a custome meta box for show the all post types 
 function show_all_post_type_metaBox() {
-	add_meta_box('posts-id', 'POST TYPES', 'ced_all_post_callbackfun', 'portofolio','side') ;
+    add_meta_box('posts-id', 'POST TYPES', 'ced_all_post_callbackfun', 'portofolio','side') ;
 }
 add_action("add_meta_boxes", 'show_all_post_type_metaBox');
 function ced_all_post_callbackfun() {
-	$data = get_users();
-	
-	foreach($data as $key => $val) {
-		?>
-			<br><input type="checkbox" name="checkbox" value="<?php echo $val?>"> <?php echo $val;?>
-		<?php
-	}
+    $data = get_users();
+    
+    foreach($data as $key => $val) {
+        ?>
+            <br><input type="checkbox" name="checkbox" value="<?php echo $val?>"> <?php echo $val;?>
+        <?php
+    }
 }
 
 
 // learn with develpoer site 
 function wporg_add_custom_box() {
-	$screen_array = get_option('custom_meta_choice');
+    $screen_array = get_option('custom_meta_choice');
     $screens = [ $screen_array ];
     foreach ( $screens as $screen ) {
         add_meta_box(
@@ -139,7 +137,7 @@ function wporg_add_custom_box() {
             'side'                            // Post type
         );
     }
-    add_option('custom_meta_choice','','yes' );
+    // add_option('custom_meta_choice','','yes' );
 }
 add_action( 'add_meta_boxes', 'wporg_add_custom_box' );
 function wporg_custom_box_html( $post ) {
