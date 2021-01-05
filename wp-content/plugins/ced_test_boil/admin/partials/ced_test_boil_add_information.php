@@ -15,6 +15,6 @@
     <label for="url">URL</label>
     <input type="password" class="form-control" id="url" placeholder="Ex - www.cedcoss.com">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" id = "submit_detail" class="btn btn-primary">Submit</button>
   </form>
 </div> 

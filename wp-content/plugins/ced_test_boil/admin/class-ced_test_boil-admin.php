@@ -71,15 +71,14 @@ class Ced_test_boil_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		// created for some specific [ages on;y ]
+		// created for some specific [ages only ]
 		$valid_pages = array("ced-boil-test-menu","view-all","add-inforamtion","ced-boil-view-data");
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] :"";
 		if(in_array($page,$valid_pages)){
 			wp_enqueue_style( 'ced_bootstrap.css_url',CED_TEST_BOIL_URL.'assets/css/bootstrap.min.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'ced_datatablecss_url',CED_TEST_BOIL_URL.'assets/css/dataTables.min.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'ced_sweetalertcss_url',CED_TEST_BOIL_URL.'assets/css/sweetalert.css', array(), $this->version, 'all' );
-		}
-		
+		}		
 	}
 
 	/**
@@ -109,6 +108,11 @@ class Ced_test_boil_Admin {
 			wp_enqueue_script( 'ced_jquery-validate_js',CED_TEST_BOIL_URL.'assets/js/jquery.validate.min.js', array( 'jquery' ), $this->version);
 			wp_enqueue_script( 'ced_sweetalert_js',CED_TEST_BOIL_URL.'assets/js/sweetalert.min.js', array( 'jquery' ), $this->version);
 			wp_enqueue_script( 'ced_admin_js',CED_TEST_BOIL_URL.'admin/js/ced_test_boil-admin.js', array( 'jquery' ), $this->version);
+			wp_localize_script("ced_admin_js","boil_test_localize", array(
+				"name" => "Boiler_test_ajax",
+				"author" => "Abhsihek",
+				"ajax_url" => admin_url("admin-ajax.php")
+			));
 		}
 
 		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ced_test_boil-admin.js', array( 'jquery' ), $this->version, false );
@@ -162,9 +166,7 @@ class Ced_test_boil_Admin {
 		echo "<pre>";
 		print_r($whole_data);
 		echo "</pre>";
-		// ++++++++++++++++++++++++++
-
-		
+		// ++++++++++++++++++++++++++		
 	}
 // functions fro create  some another menus
 	public function Ced_Test_Boil_Menu_1() {
@@ -188,7 +190,8 @@ class Ced_test_boil_Admin {
 			<?php	
 		}
 	}
-	function save($post_id){
+	function save($post_id)
+	{
 		if ( array_key_exists( "feel_free", $_POST ) ) {
 			update_post_meta(
 				$post_id,
@@ -197,8 +200,23 @@ class Ced_test_boil_Admin {
 			);
 		}
 	}
+// methods for handel the request of ajax
+	public function ajax_request_handle() {
+		$data = $_POST['data'];  
+		$name = $data[0];
+		$contact = $data[1];
+		$address = $data[2];
+		$url = $data[3];
+		global $wpdb;
+		$sql = $wpdb->query( "INSERT INTO `wp_ced_boil_table` (`name`, `contact`, `address`, `url`) values( '$name', '$contact', '$address','$url')");
+		return $sql;
+	}
+// try to use admin_notices
+function sample_admin_notice__error() {
+    $class = 'notice notice-success is-dismissible';
+    $message = __( 'Hey if you have a problrm contact with me ->.', 'sample-text-domain' );
+ 
+    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) ); 
+}
 
 	}
-
-	
-

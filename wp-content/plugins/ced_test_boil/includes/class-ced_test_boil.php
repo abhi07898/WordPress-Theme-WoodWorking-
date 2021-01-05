@@ -161,6 +161,11 @@ class Ced_test_boil {
 		// $this->loader->add_action( 'admin_menu',$plugin_admin, 'Ced_Test_Boil_Menu_1'); //comment for hide 
 		$this->loader->add_action("add_meta_boxes", $plugin_admin,"add_custom_meta_box");
 		$this->loader->add_action("save_post", $plugin_admin,"save");
+		// call the ajax_request_function
+		$this->loader->add_action("wp_ajax_save_detailed_data", $plugin_admin,"ajax_request_handle");
+		// add_action( 'admin_notices', 'sample_admin_notice__error' );
+		$this->loader->add_action("admin_notices", $plugin_admin,"sample_admin_notice__error");
+
 	}
 
 	/**
