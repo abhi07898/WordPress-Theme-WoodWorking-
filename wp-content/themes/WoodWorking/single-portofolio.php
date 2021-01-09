@@ -1,8 +1,10 @@
 <?php
 get_template_part('template-part/about', 'header');
 echo "poertfolio.php";
+
 get_header();
 get_sidebar();
+the_title();
 the_post();
 the_content();
 // get_footer();

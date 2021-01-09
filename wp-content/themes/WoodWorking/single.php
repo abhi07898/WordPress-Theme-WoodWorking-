@@ -1,27 +1,32 @@
-<?php
-get_header();
-get_sidebar();
-the_post();
-the_content(); ?>
-<?php
-/**
- * The template for displaying Comments.
- *
- * The area of the page that contains comments and the comment form.
- *
- * @package WordPress
- * @subpackage Twenty_Thirteen
- * @since Twenty Thirteen 1.0
- */
- 
-/*
- * If the current post is protected by a password and the visitor has not yet
- * entered the password we will return early without loading the comments.
- */
-if ( post_password_required() )
-    return;
-?>
- 
+<?php get_header();?>
+<div id="page">
+    <div id="page-bgtop">
+        <div id="page-bgbtm">
+            <div id="content">
+                <?php
+                    if ( have_posts() ) : 
+                        while ( have_posts() ) : the_post(); ?>
+                        <div class="post">
+                            <h2 class="title"><a href="<?php the_permalink();?>"><?php the_title() ?> </a></h2>
+                            <p class="meta">Posted by <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php the_author();?></a> <?php the_time();?>
+                                <a href="#" class="comments">Comments (64)</a> &nbsp;&<a href="" class="permalink">Full article</a></p>
+                            <div class="entry">
+                                <p><?php the_post_thumbnail('thumbnail', array ('class' => "alignleft border"));?> 
+                                <?php the_content()?> </p>
+                            </div>
+                        </div>  
+                    <?php 
+                        endwhile; 
+                    endif; 
+                ?> 
+            </div>
+            <?php get_sidebar();?>
+            <div style="clear: both;">&nbsp;</div>
+        </div>
+    </div>
+</div>
+<?php get_footer();?>
+
 <div id="comments" class="comments-area">
     <?php if ( have_comments() ) : ?>
         <h2 class="comments-title">
@@ -30,7 +35,6 @@ if ( post_password_required() )
                     number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
             ?>
         </h2>
- 
         <ol class="comment-list">
             <?php
                 wp_list_comments( array(
@@ -38,9 +42,9 @@ if ( post_password_required() )
                     'short_ping'  => true,
                     'avatar_size' => 74,
                 ) );
+                
             ?>
         </ol><!-- .comment-list -->
- 
         <?php
             // Are there comments to navigate through?
             if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
@@ -55,11 +59,8 @@ if ( post_password_required() )
         <?php if ( ! comments_open() && get_comments_number() ) : ?>
         <p class="no-comments"><?php _e( 'Comments are closed.' , 'twentythirteen' ); ?></p>
         <?php endif; ?>
- 
     <?php endif; // have_comments() ?>
- 
-    <?php 
-    
+    <?php  
     // comment_form(); 
     if ( comments_open() || get_comments_number() ) {
 		comments_template();

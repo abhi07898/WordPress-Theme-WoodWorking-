@@ -1,0 +1,18 @@
+2021-01-05T10:19:32+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:19:33+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:19:33+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:20:13+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:20:13+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:20:14+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:21:24+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:21:25+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+
+2021-01-05T10:21:25+00:00 CRITICAL Cannot redeclare ced_plugins_scripts() (previously declared in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/MetaBoxPlugin/metabox.php:47) in /opt/lampp/htdocs/Practise_WordPress/wp-content/plugins/custome-plugin/custome-plugin.php on line 50
+

@@ -66,6 +66,7 @@ define( 'NONCE_SALT',       'Mg%sA9Ri92:wLdz9g<faLRo:qmU|g@g.=1~J-4+R$$4<5xj^>lL
 $table_prefix = 'wp_';
 define('FS_METHOD','direct');
 
+define('DISABLE_WP_CRON', true);
 /**
  * For developers: WordPress debugging mode.
  *

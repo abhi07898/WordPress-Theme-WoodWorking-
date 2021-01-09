@@ -1,4 +1,5 @@
 <?php
+die('category.php');
 get_header(); 
 get_sidebar();
 while ( have_posts() ) :

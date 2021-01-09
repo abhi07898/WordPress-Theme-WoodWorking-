@@ -2,8 +2,7 @@
 /**
  * The template for displaying search results pages
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
- *
+ * @link https://www.cedcoss.com
  * @package WordPress
  * @subpackage Twenty_Nineteen
  * @since Twenty Nineteen 1.0

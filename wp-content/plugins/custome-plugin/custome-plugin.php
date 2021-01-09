@@ -1,12 +1,12 @@
 <?php
 /**
- * @package Akismet
+ * @package Customee-Plugin
  */
 /*
 Plugin Name: Custome-Plugin
 Plugin URI: https://cedcoss.com/
-Description: Used by millions, Custome-Plugin is quite possibly the best way in the world to <strong>protect your blog from spam</strong>. It keeps your site protected even while you sleep. To get started: activate the Akismet plugin and then go to your Akismet Settings page to set up your API key.
-Version: 4.1.7
+Description: This is a plugin, in which i am trying to learn some concept to eexplore the plugin development content(and it's the first task assigned by woo-commerce team to explore it).
+Version: 1.0
 Author: Abhishek 
 Author URI: https://cedcommerce/blog.com
 License: GPLv2 or later
@@ -40,8 +40,14 @@ if(!defined( 'CED_PLUGIN_URL')) {
     define('CED_PLUGIN_URL',plugin_dir_url(__FILE__));   
 }
 
-// including css and js file 
-// if (!function_exists("ced_plugins_scripts")) {
+//  
+if (!function_exists("ced_plugins_scripts")) {    
+    /**
+     * including css and js file
+     * ced_plugins_scripts
+     *
+     * @return void
+     */
     function ced_plugins_scripts() {
         wp_enqueue_style('ced_css', CED_PLUGIN_URL.'assets/css/style.css');
         wp_enqueue_style('ced_css_boot', CED_PLUGIN_URL.'assets/bootstrap/css/bootstrap.min.css');
@@ -49,18 +55,23 @@ if(!defined( 'CED_PLUGIN_URL')) {
         wp_enqueue_script('ced_js_boot', CED_PLUGIN_URL.'assets/bootstrap/js/bootstrap.min.js');
     }
     add_action('wp_enqueue_scripts','ced_plugins_scripts');
-// }
-
-add_action( 'admin_menu', 'wporg_options_page' );
-
-function wporg_options_page() {
+}
+//add_ action for create a adminu menu that name is custome menu
+add_action( 'admin_menu', 'ced_create_admin_menu_custom' );
+/**
+ * ced_create_admin_menu_custom
+ *
+ * 
+ * @return void
+ */
+function ced_create_admin_menu_custom() {
     add_menu_page(
         'Custome', //page name 
         'Custome-Plugin',  //menus name
         'manage_options', //admin level
         'custome-plugin', //page slug
-        'custome_plugin_content_func_HTML', //callback function
-        plugin_dir_url(__FILE__) . 'images/icon_wporg.png',  //icon
+        'ced_callbackfun_submenu_viewall', //callback function
+        plugin_dir_url(__FILE__) . 'images/icon_Ced.png',  //icon
         20
     );
      add_submenu_page(
@@ -69,33 +80,46 @@ function wporg_options_page() {
         'View All', // menu title
         'manage_options', //capability
         'custome-plugin', //slug
-        'custome_plugin_content_func_HTML' //calllback function
+        'ced_callbackfun_submenu_viewall' //calllback function
     );
        add_submenu_page(
         'custome-plugin', //parents slug
         'Add New', //page title
         'Add New', // menu title
         'manage_options', //capability
-        'wporg-slug-add-new', //slug
-        'wporg_add_new_options_page_html' //calllback function
+        'Ced-slug-add-new', //slug
+        'ced_callbackfun_submenu_addnew' //calllback function
     );
 }
-// call back function calling
-function custome_plugin_content_func_HTML() {
-   include_once CED_PLUGIN_DIR_PATH."inc/add_submenu_1.php";
+/**
+ * call back function for show the content on submemu(View All) 
+ * ced_callbackfun_submenu
+ *
+ * @return void
+ */
+function ced_callbackfun_submenu_viewall() {
+    include_once CED_PLUGIN_DIR_PATH."inc/ced_content_addnew_menu.php";  
 }
-function wporg_add_new_options_page_html()
-{
-    include_once CED_PLUGIN_DIR_PATH."inc/add_submenu_2.php";  
+/**
+ * ced_callbackfun_submenu_addnew
+ *
+ * @return void
+ */
+function ced_callbackfun_submenu_addnew()
+{  
+    include_once CED_PLUGIN_DIR_PATH."inc/ced_content_viewall_menu.php";
 }
-
-// CRAETE A FUNCTION FOR CARETING A TABLE IN DB DURING INSTALLATION OR ACTIAVTION  OF PLUGIN
-
+/**
+ * 
+ * CRAETE A FUNCTION FOR CARETING A TABLE IN DB DURING INSTALLATION OR ACTIAVTION  OF PLUGIN
+ * CED_my_plugin_create_db
+ *
+ * @return void
+ */
 function CED_my_plugin_create_db() {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
     $table_name = $wpdb->prefix . 'Custome_plugin';
-
     $sql = "CREATE TABLE $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -111,8 +135,6 @@ function CED_my_plugin_create_db() {
     dbDelta( $sql );
 }
 register_activation_hook( __FILE__, 'CED_my_plugin_create_db' );
+// including a file which basically used for form()  and stored in 'inc' folder
+include_once CED_PLUGIN_DIR_PATH."inc/ced_shortform.php";  
 
-include_once CED_PLUGIN_DIR_PATH."inc/short-form.php";  
-// include_once CED_PLUGIN_DIR_PATH."inc/fetching_custome_data.php";
-
-// create a form with short code ,means(create a function that return a short code) 

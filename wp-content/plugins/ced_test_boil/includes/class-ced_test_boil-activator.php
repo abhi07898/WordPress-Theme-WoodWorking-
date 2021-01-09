@@ -81,7 +81,7 @@ class Ced_test_boil_Activator {
 				global $wpdb;
 				$get_data = $wpdb->get_row(
 					$wpdb->prepare(
-						"SELECT * from ".$wpdb->prefix."posts WHERE post_name = %s",'boiler_page'
+						"SELECT * from ".$wpdb->prefix."posts WHERE post_name = %s",'boil_page'
 					)
 				);
 				if(!empty($get_data)) {
@@ -89,23 +89,19 @@ class Ced_test_boil_Activator {
 				} else {
 					$post_arr_data =  array(
 						"post_title" => "boil_page",
-						"post_name" => "boiler_page",
+						"post_name" => "boil_page",
 						"post_status" => "publish",
 						"post_type" => "page",
 						"post_author" => 1,
-						"post_content" => "this is a page which create during the activation of plugin boiler plate"
+						"post_content" => "this is a page which create during the activation during repeat the task"
 					);
 					wp_insert_post($post_arr_data);
 				}
 		}
 		create_page();
-
-		// register_activation_hook( __FILE__, 'Ced_table_creation_during_activate' );
-
 		} else { 
 			wp_die("Depnedency Not Exists", "ced_test_boil");
 		} 
-		// dayanamic table creation during actiation of this plugin
 		
 
 }
