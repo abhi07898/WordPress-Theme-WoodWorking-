@@ -4,17 +4,21 @@
  *
  * This file is used to redirect the added product items in this page.
  *
- * @link       www.cedcommercecom
+ * @link       www.cedcommerce.com
  * @since      1.0.0
  *
  * @package    Add_To_Cart
  * @subpackage Add_To_Cart/public/partials
  */
 global $post;
-$loop = new WP_Query( array( 'post_type' => 'product', 'posts_per_page' => 10 ) ); 
+
+$loop = new WP_Query( array( 'post_type' => 'product',
+ 'posts_per_page' => 1, 
+ 'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 )); 
+
 ?>
 <h2>All the Products are showing below</h2>
-     <table style = "width:80%; border:2px solid black;">
+     <table style = "width:90%; border:2px solid black;">
           <tr>
                <td>Product</td>
                <td>Image</td>
@@ -40,7 +44,11 @@ the_title('<a href="' . get_permalink()  . '" title="' . the_title_attribute( 'e
      }
           ?></td>
      <td><a href="<?php echo get_the_permalink(get_the_ID()) ?>" ><input type="button" value="Show Details"></td></a>
-          </tr> 
-<?php endwhile;    
+          </tr></table> 
+<?php endwhile; 
+     echo paginate_links(array(
+          'current' => max(1, get_query_var('paged')),
+          'total' => $loop->max_num_pages
+     ));
 ?>
 </table>
