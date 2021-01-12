@@ -72,6 +72,7 @@ class Add_To_Cart_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		wp_enqueue_style('ced_bootstrap_css', ADD_TO_CART_DIR_URL. 'assets/css/bootstrap.min.css', array(), $this->version, 'all' );
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/add-to-cart-public.css', array(), $this->version, 'all' );
 
@@ -96,10 +97,12 @@ class Add_To_Cart_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/add-to-cart-public.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script( $this->plugin_name, 'cart_js', array (
+		wp_enqueue_script('jQuery');
+		wp_enqueue_script( 'ced_bootstrap_js', ADD_TO_CART_DIR_URL.'assets/js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) .'js/add-to-cart-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'public_cart_js', array (
 			'ajax_url' => admin_url('admin-ajax.php')
-		) );
+		) );	
 
 	}	
 	/**
@@ -129,7 +132,8 @@ class Add_To_Cart_Public {
 	 * @return void
 	 * 
 	 */
-	public function ced_create_page_for_add_to_cart($template){
+	public function ced_create_page_for_add_to_cart($template)
+	{
 		// get_query_var('pagename') is used for select the page_name
 		$page_name = get_query_var('pagename');
 		if($page_name == 'ced_addtocart_page'){
@@ -150,5 +154,46 @@ class Add_To_Cart_Public {
 		require plugin_dir_path( __FILE__ ) . 'partials/add-to-cart-productsitem-layout.php';
 	 return ;
 	}
+	public function ced_update_cart() {
+		// session_start();
+		// $quant = $_POST['quant'];
+		// $key = $_POST['key'];
+		// 	$cart_data_update = array();
+		// 	if(is_user_logged_in()) {
+		// 		if ( ! function_exists( 'get_current_user_id' ) ) {
+		// 			return 0;
+		// 		}
+		// 		$user_id = get_current_user_id();
+		// 		$cart_data_arr = get_user_meta( $user_id, 'add_to_cart_details');
+		// 		$cart_data_update = $cart_data_arr[0];
+		// 	} else {
+		// 		if(isset($_SESSION['product'])) {
+		// 			$cart_data_update = $_SESSION['product'];
+		// 		}  
+		// 	}
+		// 	foreach($cart_data_update as $product_key => $value) {
+		// 		if($value['key'] == $key){
+		// 		$_SESSION['product'][$product_key]['qunatity']= $quantity;
+		// 		if(is_user_logged_in()) {
+		// 				if ( ! function_exists( 'get_current_user_id' ) ) {
+		// 					return 0;
+		// 				}
+		// 				$cart_data_update[$product_key]['qunatity']= $quant;
+		// 				$user_id = get_current_user_id();
+		// 				update_user_meta( $user_id, 'add_to_cart_details', $cart_data_update);
+		// 			}
+		// 		} 
+		// 	}
+		
+		wp_die();
+	}
+	public function ced_create_page_for_chekout_content($check_template) 
+	{
+		$page_name = get_query_var('pagename');
+		if($page_name == 'ced_checkout_page') {
+			$check_template = plugin_dir_path(__FILE__).'partials/add-to-cart-checkoutpage-layout.php';
+		}
+		return $check_template;
 
+	} 
 }
