@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'ADD_TO_CART_VERSION', '1.0.0' );
 define( 'ADD_TO_CART_TEXT_DOMAIN', 'ced_text' );
-define( 'ADD_TO_CART_DR_PATH',  plugin_dir_path(__FILE__) );
+define( 'ADD_TO_CART_DIR_PATH',  plugin_dir_path(__FILE__) );
 define( 'ADD_TO_CART_DIR_URL',  plugin_dir_url(__FILE__) );
 
 
@@ -49,6 +49,10 @@ function activate_add_to_cart() {
 	$ced_activatore_object = new Add_To_Cart_Activator();
 	$ced_activatore_object-> ced_product_page();
 	$ced_activatore_object-> ced_addtocart_page();
+	$ced_activatore_object -> ced_checkout_page();
+	$ced_activatore_object -> ced_create_order_table();
+	$ced_activatore_object -> ced_thankyou_page();
+	
 	// Add_To_Cart_Activator::activate();
 }
 

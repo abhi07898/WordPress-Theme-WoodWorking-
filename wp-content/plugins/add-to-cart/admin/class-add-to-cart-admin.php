@@ -73,7 +73,8 @@ class Add_To_Cart_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/css/bootstrap.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, ADD_TO_CART_DIR_URL.'assets/css/bootstrap.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'ced_dataTable_css', ADD_TO_CART_DIR_URL.'assets/css/jquery.dataTables.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,15 +96,14 @@ class Add_To_Cart_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		// $posttype = isset($_REQUEST['post_type'])?$_REQUEST['post_type'] : '';
-		// $valid_post = 'product';
-		// if($posttype == $valid_post)  {
+
 			wp_enqueue_script('jquery');
+			wp_enqueue_script( 'ced_datatable_js', ADD_TO_CART_DIR_URL.'assets/js/jquery.dataTables.min.js', array( 'jquery' ), $this->version, false );
 			wp_enqueue_script( 'ced_js', plugin_dir_url( __FILE__ ) . 'js/add-to-cart-admin.js', array( 'jquery' ), $this->version, false );
 			wp_localize_script( 'ced_js', 'save_meta_box_data', array (
 				'ajax_url' => admin_url('admin-ajax.php')
 			) );
-		// }
+
 		
 	}	
 	/**
@@ -258,6 +258,7 @@ class Add_To_Cart_Admin {
 			'rewrite' => array( 'slug' => 'Product' ),
 		));	
 	}	
+	
 	/**
 	 * logout_user 
 	 * Description : function for destroy the session when user logout
@@ -265,11 +266,20 @@ class Add_To_Cart_Admin {
 	 * @since 1.0.0
 	 * @return void
 	 */
+
 	public function logout_user() {
 		session_start();
 		unset($_SESSION['product']);
 	}
+	public function ced_create_adminmenu_showorder() 
+	{
+		add_menu_page('product-order-details','Product Orders','manage_options','product_order_details',array($this,'ced_content_product_order'),'dashicons-admin-home',44);
+	}
+	public function ced_content_product_order() {
+		require plugin_dir_path(__FILE__)."partials/add-to-cart-orderpage-layout.php";
+		// echo "this is the main contetne show over the ";
+	}
 	
 }
-	
+
 

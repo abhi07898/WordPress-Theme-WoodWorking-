@@ -178,6 +178,16 @@ class Add_To_Cart {
 		add_shortcode( 'short_code_page', array( $plugin_public, 'generate_short_code_for_page' ));
 		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_single_post' );
 		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_add_to_cart' );
+		$this->loader->add_action( 'wp_ajax_cart_updation', $plugin_public, 'ced_update_cart');
+		$this->loader->add_action( 'wp_ajax_nopriv_cart_updation', $plugin_public, 'ced_update_cart');	
+		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_chekout_content' );	
+		$this->loader->add_action( 'wp_ajax_check_out_customer_detail', $plugin_public, 'ced_insertion_of_checkout_data');
+		$this->loader->add_action( 'wp_ajax_nopriv_check_out_customer_detail', $plugin_public, 'ced_insertion_of_checkout_data');
+		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_thankyou_content');
+		
+
+
+		// cart_updation
 		
 	}
 

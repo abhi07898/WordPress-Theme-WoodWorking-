@@ -160,6 +160,7 @@ class Add_To_Cart {
 		$this->loader->add_action( 'init', $plugin_admin, 'ced_product_texonomies' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'ced_save_inventory_data',10,2);
 		$this->loader->add_action( 'wp_logout', $plugin_admin, 'logout_user');
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'ced_create_adminmenu_showorder');
 		// $this->loader->add_shortcode( 'short_code_page', $plugin_admin, 'generate_short_code_for_page');
 		// add_shortcode( 'short_code_page', array( $plugin_admin, 'generate_short_code_for_page' ));
 		// add_shortcode( 'bartag', 'bartag_func' );// add_action("save_post", "save_the_meta_box_data", 10, 2); 
@@ -180,7 +181,12 @@ class Add_To_Cart {
 		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_add_to_cart' );
 		$this->loader->add_action( 'wp_ajax_cart_updation', $plugin_public, 'ced_update_cart');
 		$this->loader->add_action( 'wp_ajax_nopriv_cart_updation', $plugin_public, 'ced_update_cart');	
-		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_chekout_content' );
+		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_chekout_content' );	
+		$this->loader->add_action( 'wp_ajax_check_out_customer_detail', $plugin_public, 'ced_insertion_of_checkout_data');
+		$this->loader->add_action( 'wp_ajax_nopriv_check_out_customer_detail', $plugin_public, 'ced_insertion_of_checkout_data');
+		$this->loader->add_action( 'template_include', $plugin_public, 'ced_create_page_for_thankyou_content');
+		
+
 
 		// cart_updation
 		

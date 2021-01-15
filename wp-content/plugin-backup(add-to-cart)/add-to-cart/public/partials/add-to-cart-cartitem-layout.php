@@ -120,15 +120,15 @@ if(is_user_logged_in()) {
                         echo "<td>".$srno++."</td>";
                         echo "<td>".$value['name']."</td>";
                         $p =  $value['price'];
-                        echo "<td>".$p."</td>";
+                        echo "<td id = 'price-".$p."' data-price='.$p.'>".$p."</td>";
                         $q = $value['qunatity'];
                         echo '<form action="" method="post">';
-                        echo "<td> <input type = 'number' id = 'quantity' value = ".$q." name = 'quantity' min='1'></td>";
+                        echo "<td> <input type = 'number' data-productid='". $value['key'] . "' id = 'quantity' value = ".$q." name = 'quantity' min='1' max='". $value['invent'] . "'></td>";
                         $bill = $p * $q;
-                        echo "<td>".$bill."</td>";
+                        echo "<td id=total_".$value['key'].">".$bill."</td>";
                         ?>   
                         <input type="hidden" name = "price" value = "<?php echo $p;?>">
-                        <input type="hidden" name = "key" value = "<?php echo  $value['key'];?>">             
+                        <input type="hidden" name = "key" id="key<?php echo  $value['key'];?>" value = "<?php echo  $value['key'];?>">             
                         <?php
                         echo "<td> <input type='submit' name = 'update' value = 'Update' id='cart_update'></td>";
                         echo "<td> <input type='submit' name = 'delet' value = 'Delete'  id='cart_delet'></td>";
@@ -138,6 +138,9 @@ if(is_user_logged_in()) {
                     }  
                 } 
         echo ' </tr></table>';
-        echo "<input type='button' name = 'total_bill' value = 'Total Price = $total_bill'>";
+        echo "<input  type='button' name = 'total_bill' id='grand_total' value = 'Total Price = $total_bill'>";
     ?>
 
+    <div style = "margin:50px 550px; ">
+                <a href="ced_checkout_page"><button class = "btn btn-danger p-2">Check Out</button></a>
+    </div>

@@ -133,5 +133,34 @@ class Add_To_Cart_Activator {
 			dbDelta($sql);
 		}
 	}
+	/**
+	 * ced_thankyou_page
+	 * Description : create a page during the activation of plugin for show the thankyou information after the placed order
+	 * Date : 13-1-2020
+	 * @since 1.0.0
+	 * @return void
+	 */
+	public function ced_thankyou_page() {
+		global $wpdb;
+		$get_data_cart = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * from ".$wpdb->prefix."posts WHERE post_name = %s",'ced_thankyou_page'
+			)
+		);
+		if(!empty($get_data_cart)) {
+
+		} else {
+			$post_arr_data = array(
+				"post_title" => "Ced_thankyou_page",
+				"post_name" => "ced_thankyou_page",
+				"post_status" => "publish",
+				"post_type" => "page",
+				"post_author" => 1,
+				"post_content" => "it's a page creating during the activation of plugin for show thethankouy page  item "
+			);
+			wp_insert_post($post_arr_data);
+		}
+
+	}
 
 }

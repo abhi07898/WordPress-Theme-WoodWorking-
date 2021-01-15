@@ -48,24 +48,53 @@ the_title('<a href="' . get_permalink()  . '" title="' . the_title_attribute( 'e
           <?php 
           //++++++++++++++++++++ inventory logic  +++++++++++++++
           $count = 0;
-          // if(!empty($_SESSION['count'])) {
-          // $count = $_SESSION['count'];
-          // }
           $id  = $post->ID;
           $meta_data = get_post_meta($id,'product_meta_data',1);
           $inventory_available_data = $meta_data['invent']; 
-          
-          //++++++++++++++++++++   +++++++++++++++
-           if($inventory_available_data > 0) {
-              echo '<input type="submit" value="Add To Cart" name="add_to_cart"></td></a>';
-           } else {
-               echo '<input type="button" value="Out of Stocks !!!" name="out-of-stocks"></td></a>';  
-           } 
-           echo $count."-----";
-           if($count >=  $inventory_available_data ) {
-                echo '<script>alert("Item Sold Out!!!!!")</script>';
-               //  echo '<input type="button" value="Out of Stocks !!!" name="out-of-stocks"></td></a>';
-           }
+          $updated_qnt = 0;
+
+          if(is_user_logged_in()) {
+               $updated_qnt  =  0;
+               if ( ! function_exists( 'get_current_user_id' ) ) {
+                    return 0;
+               }
+               $user_id = get_current_user_id();
+               $data = get_user_meta( $user_id, 'add_to_cart_details', 1);
+               if(!empty($data))
+               {
+                    $current_product_name =  get_the_title();
+                    foreach($data as $key_res => $val_res) {
+                         if($val_res['name'] == $current_product_name) 
+                         {
+                              $updated_qnt  =  $val_res['qunatity'];
+                         } else {
+                              $updated_qnt  =  0;
+                         }
+                    } 
+               }         
+          }
+
+          if(!empty($_SESSION['product'])) {
+               $current_product_name =  get_the_title();
+               $matched = false ;
+               foreach($_SESSION['product'] as $key => $val){
+                    if($val['name'] == $current_product_name) {
+                         $matched = true;
+                    }
+               } 
+               if($matched == true)  { 
+                    $updated_qnt =    $_SESSION['product'][$key]['qunatity'];             
+               } else {
+                    $updated_qnt = 0;
+               } 
+          }
+
+          if($inventory_available_data < 0 || $inventory_available_data <= $updated_qnt+1) {
+               echo '<input type="button" value="Out of Stocks !!!" name="out-of-stocks" disabled ></td></a><br>'; 
+               echo '<span style="color:red">OUT OF STOCK</span>';          
+          } else {
+               echo '<input type="submit" value="Add To Cart" name="add_to_cart"></td></a>';             
+          } 
           ?>
          
           </tr>
@@ -78,14 +107,6 @@ if(empty( $_SESSION['product'])) {
      $_SESSION['product'] = array();
 }
      if(isset($_POST['add_to_cart'])) {   
-          // $_SESSION['count'] = array();    
-          // if(!($_SESSION['count'])){
-          //      $_SESSION['count'] = 1;
-          //  }else{
-          //      $count = $_SESSION['count'] + 1;
-          //      $_SESSION['count'] = $count;
-          //  }  
-          
           // echo "<script>alert(str.link('https://www.w3schools.com'));</script>";
           // session_destroy();
           $post_id = $_POST['post_id'];
@@ -114,6 +135,8 @@ if(empty( $_SESSION['product'])) {
                if($var_for_check_condition == "false") {
                     $new_qty = $val['qunatity'] + 1;
                     $_SESSION['product'][$key]['qunatity'] = $new_qty;
+                    $quantity =  $_SESSION['product'][$key]['qunatity'];
+                    echo $quantity;
                }
                if($var_for_check_condition == "true") {
                     array_push( $_SESSION['product'],$item_array);
@@ -129,10 +152,7 @@ if(empty( $_SESSION['product'])) {
                     update_user_meta( $user_id, 'add_to_cart_details', $_SESSION['product']);  
                 }         
           }
-          if(!empty($_SESSION['product'])) {
-               print_r($_SESSION['product']);
-          }
-           
+        
      }     
     
  ?>

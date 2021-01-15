@@ -51,6 +51,7 @@ function activate_add_to_cart() {
 	$ced_activatore_object-> ced_addtocart_page();
 	$ced_activatore_object -> ced_checkout_page();
 	$ced_activatore_object -> ced_create_order_table();
+	$ced_activatore_object -> ced_thankyou_page();
 	
 	// Add_To_Cart_Activator::activate();
 }

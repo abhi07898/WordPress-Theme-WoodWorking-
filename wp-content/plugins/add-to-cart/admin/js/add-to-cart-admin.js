@@ -18,4 +18,5 @@ jQuery(document).ready(function(){
         	}
 		} 
 	});
+	jQuery('#order_table').DataTable();
 });
